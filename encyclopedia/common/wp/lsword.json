@@ -1,0 +1,14 @@
+{
+    "name": "Longsword",
+    "stat": "strength",
+    "melee": {
+        "range": "5 ft.",
+        "base": "1d8",
+        "type": "slashing"
+    },
+    "melee2": {
+        "range": "5 ft.",
+        "base": "1d10",
+        "type": "slashing"
+    }
+}

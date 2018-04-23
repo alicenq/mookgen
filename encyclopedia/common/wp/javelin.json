@@ -1,0 +1,12 @@
+{
+    "name": "Javelin",
+    "stat": "strength",
+    "melee": {
+        "base": "1d6",
+        "type": "slashing"
+    },
+    "ranged": {
+        "base": "1d6",
+        "type": "bludgeoning"
+    }
+}
