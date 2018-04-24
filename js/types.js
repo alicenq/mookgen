@@ -19,23 +19,6 @@ function loadTypes() {
     return Promise.all(promises)
 };
 
-class WeaponTemplate {
-    constructor() {
-        this.name = '';
-        this.stat = ''
-        this.melee = null;
-        this.melee2 = null;
-        this.ranged = null;
-    }
-}
-
-class TraitTemplate {
-    constructor() {
-        this.name = '';
-        this.description = '';
-    }
-}
-
 class CreatureTemplate {
     constructor() {
         this.alignment = 'true neutral';
@@ -72,22 +55,40 @@ class CreatureTemplate {
     }
 
     static fetch(name) {
+        return Template.fetch(new CreatureTemplate(), `/encyclopedia/race/${name}.json`)
+    }
+}
+
+class CreatureModifier {
+    constructor() {
+        this.name = '';
+        this.description = '';
+        this.challenge = 0;
+        this.attributes = [];
+        this.skills = [];
+        this.stat = [];
+    }
+
+    static fetch(name) {
+        return Template.fetch(new CreatureModifier(), `/encyclopedia/role/${name}.json`)
+    }
+}
+
+class Template {
+    static fetch(template, path) {
         // Helper function
         let json = function (res) {
             return res.json();
         }
 
         // Fetch the corresponding JSON
-        return fetch('/encyclopedia/race/' + name + '.json')
+        return fetch(path)
             .then(json)
             .then(function (data) {
-                // Populate the defaults
-                let creature = new CreatureTemplate();
-
                 // Copy over all the properties iteratively
                 let queue = [{
                     source: data,
-                    copy: creature
+                    copy: template
                 }];
 
                 // Each queue item consists of a source object and a copy object
@@ -112,43 +113,49 @@ class CreatureTemplate {
                     });
                 }
 
-                // Pre-sort the attributes
-                let attributes = creature.attributes;
-                delete creature.attributes;
-                creature.actions = [];
-                creature.bonusactions = [];
-                creature.reactions = [];
-                creature.traits = [];
+                // Pre-sort the attributes if any
+                if (template.attributes) {
+                    let attributes = template.attributes;
+                    delete template.attributes;
 
-                attributes.forEach(function (attr) {
-                    if (attr.import) {
-                        let src = __commonTypes[attr.import];
-                        if (src && src.hasOwnProperty(attr.key)) {
-                            attr = Object.assign(attr, src[attr.key])
+                    template.actions = [];
+                    template.bonusactions = [];
+                    template.reactions = [];
+                    template.traits = [];
+
+                    attributes.forEach(function (attr) {
+                        if (attr.import) {
+                            let src = __commonTypes[attr.import];
+                            if (src && src.hasOwnProperty(attr.key)) {
+                                attr = Object.assign(attr, src[attr.key])
+                            }
+
+                            delete attr.import;
+                            delete attr.key;
                         }
-                    }
 
-                    switch (attr.type) {
-                        case 'action':
-                            creature.actions.push(attr);
-                            break;
-                        case 'bonus':
-                            creature.bonusactions.push(attr);
-                            break;
-                        case 'reaction':
-                            creature.reactions.push(attr);
-                            break;
-                        case 'trait':
-                        case undefined:
-                            creature.traits.push(attr);
-                            break;
-                        default:
-                            console.warn(attr);
-                            break;
-                    }
-                })
+                        switch (attr.type) {
+                            case 'action':
+                                template.actions.push(attr);
+                                break;
+                            case 'bonus':
+                                template.bonusactions.push(attr);
+                                break;
+                            case 'reaction':
+                                template.reactions.push(attr);
+                                break;
+                            case 'trait':
+                            case undefined:
+                                template.traits.push(attr);
+                                break;
+                            default:
+                                console.warn(attr);
+                                break;
+                        }
+                    })
+                }
 
-                return creature;
+                return template;
             })
     }
 }

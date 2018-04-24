@@ -13,5 +13,9 @@ window.onload = function () {
     CreatureTemplate.fetch('kobold')
         .then(console.log)
         .catch(console.log);
+
+    CreatureModifier.fetch('fire-sorc')
+        .then(console.log)
+        .catch(console.log);
 }
 

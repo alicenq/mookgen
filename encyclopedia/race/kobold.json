@@ -8,7 +8,7 @@
         },
         {
             "type": "action",
-            "template": "weapon",
+            "import": "weapon",
             "key": "sling"
         },
         {

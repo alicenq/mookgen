@@ -2,9 +2,9 @@
     "name": "Fire Sorcerer",
     "description": "Naur dan i ngaurhoth!",
     "challenge": 1,
-    "flavors": [
+    "attributes": [
         {
-            "template": "spell",
+            "import": "spell",
             "key": "sorcerer",
             "spells": [
                 {
