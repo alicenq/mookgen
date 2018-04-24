@@ -1,23 +1,32 @@
 {
-    "actions": {
-        "common": [],
-        "unique": []
-    },
+    "actions": [
+        {
+            "type": "weapon",
+            "name": "dagger"
+        },
+        {
+            "type": "weapon",
+            "name": "sling"
+        }
+    ],
     "alignment": "lawful evil",
     "challenge": 0.125,
-    "conditimmune": [],
+    "conditionsimmune": [],
     "hitdie": 6,
     "immune": [],
     "languages": [
         "Common",
         "Draconic"
     ],
+    "modifiers": [],
     "resists": [],
     "senses": [
         "Darkvision 60 ft."
     ],
     "size": "Small",
-    "speed": "30 ft.",
+    "speed": {
+        "run": 30
+    },
     "stat": {
         "str": 7,
         "dex": 15,

@@ -1,7 +1,7 @@
 {
     "1000": {
         "name": "Sunlight Sensitivity",
-        "description": "While in sunlight, the ${name} has disadvantage on Attack rolls, as well as on Wisdom (Perception) checks that rely on sight" 
+        "description": "While in sunlight, the ${name} has disadvantage on Attack rolls, as well as on Wisdom (Perception) checks that rely on sight"
     },
     "1001": {
         "name": "Pack Tactics",
