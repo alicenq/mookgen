@@ -1,15 +1,25 @@
 {
-    "actions": [
+    "alignment": "lawful evil",
+    "attributes": [
         {
-            "type": "weapon",
-            "name": "dagger"
+            "type": "action",
+            "import": "weapon",
+            "key": "dagger"
         },
         {
-            "type": "weapon",
-            "name": "sling"
+            "type": "action",
+            "template": "weapon",
+            "key": "sling"
+        },
+        {
+            "import": "trait",
+            "key": "sunlight-sensitivity"
+        },
+        {
+            "import": "trait",
+            "key": "pack-tactics"
         }
     ],
-    "alignment": "lawful evil",
     "challenge": 0.125,
     "conditionsimmune": [],
     "hitdie": 6,
@@ -20,6 +30,7 @@
     ],
     "modifiers": [],
     "resists": [],
+    "saves": [],
     "senses": [
         "Darkvision 60 ft."
     ],
@@ -35,10 +46,6 @@
         "wis": 7,
         "cha": 8
     },
-    "traits": [
-        "sunlight-sensitivity",
-        "pack-tactics"
-    ],
     "type": "humanoid",
     "vulnerable": [],
     "xp": 25

@@ -1,0 +1,22 @@
+{
+    "dagger": {
+        "name": "Dagger",
+        "description": "Melee Weapon Attack: $sign($prof + $fine} to hit, reach 5 ft., one target. Hit: $dmg(1d4,$finesse) piercing damage."
+    },
+    "ssword": {
+        "name": "Shortsword",
+        "description": "Melee Weapon Attack: $stat{$prof + $fine} to hit, reach 5 ft., one target. Hit: $dmg(1d6,$finesse) piercing damage."
+    },
+    "lsword": {
+        "name": "Longsword",
+        "description": "Melee Weapon Attack: $stat{$prof + $str} to hit, reach 5 ft., one target. Hit: $dmg(1d8,$str) piercing damage, or $dmg(1d10,$str) if held with both hands."
+    },
+    "sling": {
+        "name": "Sling",
+        "description": "Ranged Weapon Attack: $stat{$prof + $str} to hit, range 30/120 ft., one target. Hit: $dmg(1d4,$str) piercing damage."
+    },
+    "javelin": {
+        "name": "Javelin",
+        "description": "Melee or Ranged Weapon Attack: $stat{$prof + $str} to hit, reach 5 ft. or range 30/120 ft., one target. Hit: $dmg(1d6,$str) piercing damage."
+    }
+}

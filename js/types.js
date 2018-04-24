@@ -5,8 +5,9 @@ function loadTypes() {
     let rx = /\/[^\/]+(?=\.json)/;
 
     [
-        '/encyclopedia/common/traits.json',
-        ' /encyclopedia/common/weapons.json'
+        '/encyclopedia/common/trait.json',
+        '/encyclopedia/common/weapon.json',
+        '/encyclopedia/common/spell.json'
     ].forEach(function (path) {
         let name = rx.exec(path)[0].substr(1);
         promises.push(fetch(path)
@@ -18,17 +19,36 @@ function loadTypes() {
     return Promise.all(promises)
 };
 
+class WeaponTemplate {
+    constructor() {
+        this.name = '';
+        this.stat = ''
+        this.melee = null;
+        this.melee2 = null;
+        this.ranged = null;
+    }
+}
+
+class TraitTemplate {
+    constructor() {
+        this.name = '';
+        this.description = '';
+    }
+}
+
 class CreatureTemplate {
     constructor() {
-        this.actions = [];
         this.alignment = 'true neutral';
-        this.challenge = 1;
+        this.challenge = 0.125;
+        this.attributes = [];
         this.hitdie = 6;
-        this.immune = [];
+        this.immunities = [];
         this.languages = [];
         this.modifiers = {};
-        this.resists = [];
+        this.resistances = [];
+        this.saves = [];
         this.senses = [];
+        this.skills = [];
         this.size = "medium";
         this.speed = {
             run: 0,
@@ -46,9 +66,8 @@ class CreatureTemplate {
 
             finesse() { return Math.max(str, dex); }
         };
-        this.traits = [];
         this.type = 'humanoid';
-        this.vulnerable = [];
+        this.vulnerabilities = [];
         this.xp = 25;
     }
 
@@ -93,40 +112,41 @@ class CreatureTemplate {
                     });
                 }
 
-                let actions = creature.actions;
-                let traits = creature.traits;
-
+                // Pre-sort the attributes
+                let attributes = creature.attributes;
+                delete creature.attributes;
                 creature.actions = [];
+                creature.bonusactions = [];
+                creature.reactions = [];
                 creature.traits = [];
 
-                // Load all creature actions
-                actions.forEach(function (action) {
-                    let source = {};
-                    switch (action.type.toLowerCase()) {
-                        case 'weapon':
-                            source = __commonTypes.weapons;
+                attributes.forEach(function (attr) {
+                    if (attr.import) {
+                        let src = __commonTypes[attr.import];
+                        if (src && src.hasOwnProperty(attr.key)) {
+                            attr = Object.assign(attr, src[attr.key])
+                        }
+                    }
+
+                    switch (attr.type) {
+                        case 'action':
+                            creature.actions.push(attr);
+                            break;
+                        case 'bonus':
+                            creature.bonusactions.push(attr);
+                            break;
+                        case 'reaction':
+                            creature.reactions.push(attr);
+                            break;
+                        case 'trait':
+                        case undefined:
+                            creature.traits.push(attr);
+                            break;
+                        default:
+                            console.warn(attr);
                             break;
                     }
-
-                    if (source.hasOwnProperty(action.name)) {
-                        // We have a match! Load it
-                        creature.actions.push(source[action.name]);
-                    } else {
-                        // No idea, we'll figure it out later
-                        creature.actions.push(action);
-                    }
-                });
-
-                // Load all creature traits
-                traits.forEach(function (trait) {
-                    let source = __commonTypes.traits;
-
-                    if (typeof (trait) == 'object') {
-                        creature.traits.push(trait);
-                    } else if (source.hasOwnProperty(trait)) {
-                        creature.traits.push(source[trait]);
-                    }
-                });
+                })
 
                 return creature;
             })
@@ -165,4 +185,9 @@ class Dice {
             return new Dice(parseInt(count), parseInt(die));
         }
     };
+}
+
+signed = function (value) {
+    if (value > 0) return '+' + value;
+    else return '-' + (value * -1);
 }

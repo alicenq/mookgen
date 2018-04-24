@@ -1,0 +1,61 @@
+{
+    "name": "Fire Sorcerer",
+    "description": "Naur dan i ngaurhoth!",
+    "challenge": 1,
+    "flavors": [
+        {
+            "template": "spell",
+            "key": "sorcerer",
+            "spells": [
+                {
+                    "label": "cantrips",
+                    "count": 4,
+                    "options": [
+                        "Fire Bolt",
+                        "Control Flames",
+                        "Dancing Lights",
+                        "Light",
+                        "Create Bonfire",
+                        "Mending",
+                        "Blade Ward"
+                    ]
+                },
+                {
+                    "label": "1st level (4 slots)",
+                    "count": 2,
+                    "options": [
+                        "Burning Hands",
+                        "Absorb Elements",
+                        "Chromatic Orb (fire)"
+                    ]
+                },
+                {
+                    "label": "2nd level (2 slots)",
+                    "count": 2,
+                    "options": [
+                        "Scorching Ray",
+                        "Dragon's Breath (fire)",
+                        "Agannaza's Scorcher",
+                        "Darkvision",
+                        "Pyrotechnics"
+                    ]
+                }
+            ]
+        }
+    ],
+    "skills": {
+        "count": 2,
+        "options": [
+            "Arcana",
+            "Deception",
+            "Insight",
+            "Intimidation",
+            "Persuasion",
+            "Religion"
+        ]
+    },
+    "stat": {
+        "con": 2,
+        "cha": 4
+    }
+}
