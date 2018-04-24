@@ -1,9 +1,0 @@
-{
-    "name": "Shortsword",
-    "stat": "finesse",
-    "melee": {
-        "range": "5 ft.",
-        "base": "1d6",
-        "type": "piercing"
-    }
-}

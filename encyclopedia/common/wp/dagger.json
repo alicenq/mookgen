@@ -1,9 +1,0 @@
-{
-    "name": "Dagger",
-    "stat": "finesse",
-    "melee": {
-        "range": "5 ft.",
-        "base": "1d4",
-        "type": "piercing"
-    }
-}

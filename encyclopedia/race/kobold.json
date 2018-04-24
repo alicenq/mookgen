@@ -36,8 +36,8 @@
         "cha": 8
     },
     "traits": [
-        1000,
-        1001
+        "sunlight-sensitivity",
+        "pack-tactics"
     ],
     "type": "humanoid",
     "vulnerable": [],

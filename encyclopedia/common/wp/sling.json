@@ -1,9 +1,0 @@
-{
-    "name": "Sling",
-    "stat": "strength",
-    "ranged": {
-        "range": "30/120 ft.",
-        "base": "1d4",
-        "type": "bludgeoning"
-    }
-}

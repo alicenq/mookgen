@@ -1,0 +1,55 @@
+{
+    "dagger": {
+        "name": "Dagger",
+        "stat": "finesse",
+        "melee": {
+            "range": "5 ft.",
+            "base": "1d4",
+            "type": "piercing"
+        }
+    },
+    "ssword": {
+        "name": "Shortsword",
+        "stat": "finesse",
+        "melee": {
+            "range": "5 ft.",
+            "base": "1d6",
+            "type": "piercing"
+        }
+    },
+    "lsword": {
+        "name": "Longsword",
+        "stat": "strength",
+        "melee": {
+            "range": "5 ft.",
+            "base": "1d8",
+            "type": "slashing"
+        },
+        "melee2": {
+            "range": "5 ft.",
+            "base": "1d10",
+            "type": "slashing"
+        }
+    },
+    "sling": {
+        "name": "Sling",
+        "stat": "strength",
+        "ranged": {
+            "range": "30/120 ft.",
+            "base": "1d4",
+            "type": "bludgeoning"
+        }
+    },
+    "javelin": {
+        "name": "Javelin",
+        "stat": "strength",
+        "melee": {
+            "base": "1d6",
+            "type": "slashing"
+        },
+        "ranged": {
+            "base": "1d6",
+            "type": "bludgeoning"
+        }
+    }
+}

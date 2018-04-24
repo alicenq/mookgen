@@ -1,3 +1,23 @@
+var __commonTypes = {};
+
+function loadTypes() {
+    let promises = [];
+    let rx = /\/[^\/]+(?=\.json)/;
+
+    [
+        '/encyclopedia/common/traits.json',
+        ' /encyclopedia/common/weapons.json'
+    ].forEach(function (path) {
+        let name = rx.exec(path)[0].substr(1);
+        promises.push(fetch(path)
+            .then(function (res) { return res.json(); })
+            .then(function (data) { __commonTypes[name] = data; })
+        );
+    })
+
+    return Promise.all(promises)
+};
+
 class CreatureTemplate {
     constructor() {
         this.actions = [];
@@ -33,97 +53,83 @@ class CreatureTemplate {
     }
 
     static fetch(name) {
-        return new Promise(function (resolve, reject) {
-            // Helper function
-            let json = function (res) {
-                return res.json();
-            }
+        // Helper function
+        let json = function (res) {
+            return res.json();
+        }
 
-            // Fetch the corresponding JSON
-            fetch('/encyclopedia/race/' + name + '.json')
-                .then(json)
-                .then(function (data) {
-                    // Populate the defaults
-                    let creature = new CreatureTemplate();
+        // Fetch the corresponding JSON
+        return fetch('/encyclopedia/race/' + name + '.json')
+            .then(json)
+            .then(function (data) {
+                // Populate the defaults
+                let creature = new CreatureTemplate();
 
-                    // Copy over all the properties iteratively
-                    let queue = [{
-                        source: data,
-                        copy: creature
-                    }];
+                // Copy over all the properties iteratively
+                let queue = [{
+                    source: data,
+                    copy: creature
+                }];
 
-                    // Each queue item consists of a source object and a copy object
-                    while (queue.length > 0) {
-                        let next = queue.pop();
-                        let keys = Object.keys(next.source);
+                // Each queue item consists of a source object and a copy object
+                while (queue.length > 0) {
+                    let next = queue.pop();
+                    let keys = Object.keys(next.source);
 
-                        keys.forEach(function (key) {
-                            if (next.source.hasOwnProperty(key)) {
-                                if (typeof (next.source[key]) == 'object') {
-                                    let isArray = Array.isArray(next.copy[key]);
-                                    next.copy[key] = isArray ? [] : {};
+                    keys.forEach(function (key) {
+                        if (next.source.hasOwnProperty(key)) {
+                            if (typeof (next.source[key]) == 'object') {
+                                let isArray = Array.isArray(next.copy[key]);
+                                next.copy[key] = isArray ? [] : {};
 
-                                    queue.push({
-                                        source: next.source[key],
-                                        copy: next.copy[key]
-                                    })
-                                } else {
-                                    next.copy[key] = next.source[key];
-                                }
+                                queue.push({
+                                    source: next.source[key],
+                                    copy: next.copy[key]
+                                })
+                            } else {
+                                next.copy[key] = next.source[key];
                             }
-                        });
-                    }
-
-                    // Fetch traits and load each
-                    let promises = [
-                        fetch('/encyclopedia/common/traits.json')
-                            .then(json)
-                            .then(function (data) {
-                                let source = creature.traits;
-                                creature.traits = [];
-
-                                for (let i in source) {
-                                    let trait = source[i];
-                                    if (typeof (trait) == 'object') {
-                                        creature.traits.push(trait);
-                                    } else {
-                                        creature.traits.push(data[trait]);
-                                    }
-                                }
-                            })
-                            .catch(reject)
-                    ];
-
-                    // Fetch each action as needed
-                    let actions = creature.actions;
-                    creature.actions = [];
-
-                    for (let i in actions) {
-                        let action = actions[i];
-
-                        switch (action.type) {
-                            case 'weapon':
-                                promises.push(
-                                    fetch('/encyclopedia/common/wp/' + action.name + '.json')
-                                        .then(json)
-                                        .then(function (data) {
-                                            creature.actions.push(data);
-                                        })
-                                        .catch(reject)
-                                );
-                                break;
-                            default:
-                                creature.actions.push(action);
                         }
+                    });
+                }
+
+                let actions = creature.actions;
+                let traits = creature.traits;
+
+                creature.actions = [];
+                creature.traits = [];
+
+                // Load all creature actions
+                actions.forEach(function (action) {
+                    let source = {};
+                    switch (action.type.toLowerCase()) {
+                        case 'weapon':
+                            source = __commonTypes.weapons;
+                            break;
                     }
 
+                    if (source.hasOwnProperty(action.name)) {
+                        // We have a match! Load it
+                        creature.actions.push(source[action.name]);
+                    } else {
+                        // No idea, we'll figure it out later
+                        creature.actions.push(action);
+                    }
+                });
 
-                    Promise.all(promises).then(function () {
-                        resolve(creature);
-                    }).catch(reject);
-                })
-                .catch(reject);
-        })
+                // Load all creature traits
+                traits.forEach(function (trait) {
+                    let source = __commonTypes.traits;
+
+                    if (typeof (trait) == 'object') {
+                        creature.traits.push(trait);
+                    } else if (source.hasOwnProperty(trait)) {
+                        creature.traits.push(source[trait]);
+                    }
+                });
+
+                return creature;
+            })
     }
 }
 

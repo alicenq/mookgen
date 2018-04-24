@@ -1,12 +1,17 @@
 window.onload = function () {
+    loadTypes()
+        .then(function () {
+            console.log('Types loaded successfully');
+            console.log(__commonTypes);
+        })
+        .catch(console.log);
+
     new Vue({
         el: "#vue-app"
     });
 
-    run();
+    CreatureTemplate.fetch('kobold')
+        .then(console.log)
+        .catch(console.log);
 }
 
-function run() {
-    CreatureTemplate.fetch('kobold').then(console.log).catch(console.log);
-    console.log(Dice.parse('11d9').average());
-}

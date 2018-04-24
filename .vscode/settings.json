@@ -9,8 +9,32 @@
         "**/CVS": true,
         "**/.DS_Store": true
     },
-    "editor.formatOnType":true,
+    "editor.formatOnType": true,
     "editor.rulers": [
         140
-    ]
+    ],
+    "minify.minifyExistingOnSave": false,
+    "minify.js": {
+        "mangle": true,
+        "compress": {
+            "keep_fargs": false,
+            "keep_fnames": false,
+            "join_vars": true,
+            "reduce_vars": true,
+            "collapse_vars": true,
+            "evaluate": true,
+            "unused": true 
+        },
+        "output": {
+            "ascii_only": false,
+            "inline_script": true,
+            "max_line_len": 32000,
+            "bracketize": false,
+            "semicolons": true,
+            "comments": false,
+            "shebang": true,
+            "preamble": null,
+            "quote_style": "best"
+        }
+    }
 }
