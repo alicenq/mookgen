@@ -1,13 +1,16 @@
 var __commonTypes = {};
 
+var __rootpath = document.path.substr(0, document.path.lastIndexOf('/'));
+console.log(__rootpath);
+
 function loadTypes() {
     let promises = [];
     let rx = /\/[^\/]+(?=\.json)/;
 
     [
-        '/encyclopedia/common/trait.json',
-        '/encyclopedia/common/weapon.json',
-        '/encyclopedia/common/spell.json'
+        document.path + 'encyclopedia/common/trait.json',
+        'encyclopedia/common/weapon.json',
+        'encyclopedia/common/spell.json'
     ].forEach(function (path) {
         let name = rx.exec(path)[0].substr(1);
         promises.push(fetch(path)
@@ -160,7 +163,7 @@ class CreatureTemplate {
     }
 
     static fetch(name) {
-        return Template.fetch(new CreatureTemplate(), `/encyclopedia/race/${name}.json`)
+        return Template.fetch(new CreatureTemplate(), `encyclopedia/race/${name}.json`)
     }
 }
 
@@ -172,7 +175,7 @@ class CreatureModifier {
     }
 
     static fetch(name) {
-        return Template.fetch(new CreatureModifier(), `/encyclopedia/role/${name}.json`)
+        return Template.fetch(new CreatureModifier(), `encyclopedia/role/${name}.json`)
     }
 }
 
