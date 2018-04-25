@@ -1,15 +1,18 @@
 {
+    "name": "Kobold",
     "alignment": "lawful evil",
     "attributes": [
         {
             "type": "action",
             "import": "weapon",
-            "key": "dagger"
+            "key": "dagger",
+            "slot": "melee1"
         },
         {
             "type": "action",
             "import": "weapon",
-            "key": "sling"
+            "key": "sling",
+            "slot": "range"
         },
         {
             "import": "trait",
@@ -21,15 +24,14 @@
         }
     ],
     "challenge": 0.125,
-    "conditionsimmune": [],
+    "immunities": [],
     "hitdie": 6,
-    "immune": [],
     "languages": [
         "Common",
         "Draconic"
     ],
     "modifiers": [],
-    "resists": [],
+    "resistances": [],
     "saves": [],
     "senses": [
         "Darkvision 60 ft."
@@ -47,6 +49,6 @@
         "cha": 8
     },
     "type": "humanoid",
-    "vulnerable": [],
+    "vulnerabilities": [],
     "xp": 25
 }

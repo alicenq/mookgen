@@ -1,7 +1,6 @@
 {
     "name": "Fire Sorcerer",
     "description": "Naur dan i ngaurhoth!",
-    "challenge": 1,
     "attributes": [
         {
             "import": "spell",
@@ -41,8 +40,15 @@
                     ]
                 }
             ]
+        },
+        {
+            "name": "Sorcery Points",
+            "description": "The $name has 3 sorcery points. It can spend 1 or more sorcery points as a bonus action to gain one of the following benefits:\n\nHeightened Spell: When it casts a spell that forces a creature to a saving throw to resist the spell’s effects, the $name can spend 3 sorcery points to give one target of the spell disadvantage on its first saving throw against the spell.\n\nSubtle Spell: When the $name casts a spell, it can spend 1 sorcery point to cast the spell without any somatic or verbal components."
         }
     ],
+    "challenge": 1,
+    "hitdie": 6,
+    "level": 3,
     "skills": {
         "count": 2,
         "options": [

@@ -1,0 +1,39 @@
+{
+    "name": "Thug",
+    "description": "Naur dan i ngaurhoth!",
+    "armor": {
+        "ac": 1,
+        "type": "Leather Armor"
+    },
+    "attributes": [
+        {
+            "type": "action",
+            "name": "Multiattack",
+            "description": "The $name makes two melee attacks",
+            "slot": "mattack"
+        },
+        {
+            "type": "action",
+            "import": "weapon",
+            "key": "mace",
+            "slot": "melee1"
+        },
+        {
+            "type": "action",
+            "import": "weapon",
+            "key": "hxbow",
+            "slot": "range"
+        }
+    ],
+    "challenge": 0.5,
+    "hitdie": 8,
+    "level": 5,
+    "skills": [
+        "intimidation"
+    ],
+    "stat": {
+        "str": 5,
+        "con": 2
+    },
+    "xp": 100
+}
