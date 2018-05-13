@@ -1,0 +1,12 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "allowUnreachableCode": false,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "outDir": "js",
+        "rootDir": "ts",
+        "removeComments": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}
