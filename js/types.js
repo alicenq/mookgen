@@ -1,3 +1,5 @@
+/* global assign:false, merge:false */
+
 /**
  * A callback to use when resolving merge conflicts
  *
@@ -12,7 +14,7 @@
  * @param {any} target 
  * @param {any} source 
  */
-var assign = function (target, source) {
+assign = function (target, source) {
     return this.merge(target, source, MergeStrategy.OURS)
 }
 
@@ -23,7 +25,7 @@ var assign = function (target, source) {
  * @param {any} source 
  * @param {MergeStrategy} strategy 
  */
-var merge = function (target, source, strategy) {
+merge = function (target, source, strategy) {
     let queue = [{
         target: target,
         source: source
