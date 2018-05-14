@@ -1,9 +1,9 @@
 {
-    "sunlight-sensitivity": {
+    "sunsens": {
         "name": "Sunlight Sensitivity",
         "description": "While in sunlight, the $name has disadvantage on Attack rolls, as well as on Wisdom (Perception) checks that rely on sight"
     },
-    "pack-tactics": {
+    "pack": {
         "name": "Pack Tactics",
         "description": "The $name has advantage on an Attack roll against a creature if at least one of the $name's allies is within 5 ft. of the creature and the ally isn't Incapacitated."
     }

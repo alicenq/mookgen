@@ -1,45 +1,16 @@
-window.onload = function () {
-    fetchObject('encyclopedia/common/spell.json')
-        .then(console.log)
 
-    let test = [
-        1,
-        2,
-        'hello world',
-        {
-            pick: 1,
-            from: ['a', 'b', 'c', 'd', 'e', 'f']
-        },
-        {
-            pick: 3,
-            from: ['a', 'b', 'c', 'd', 'e', 'f']
-        },
-        {
-            pick: 1,
-            upto: 3,
-            from: ['a', 'b', 'c', 'd', 'e', 'f']
-        },
-        {
-            pick: 4,
-            from: 1000,
-            weight: 'low'
-        },
-        {
-            pick: 4,
-            from: 1000,
-            weight: 'high'
-        },
-        {
-            pick: 3,
-            from: 5,
-            add: 2
-        }
-    ];
-    test.forEach(function (template) {
-        console.log(template);
-        console.log(evalutate(template));
-        console.log(evalutate(template));
-        console.log(evalutate(template));
-        console.log('------')
-    });
+window.onload = function () {
+    console.log(evaluate('The ${name} is a ${slvl,o}-level spellcaster. its spellcasting ability is Charisma (spell save DC ${8 + prof + cha}, ${prof + cha,s} to hit with spell attacks). It has the following bard spells prepared:', {
+        name: 'asd',
+        slvl: 3,
+        prof: 2,
+        cha: 3
+    }));
+
+    console.log(evaluate('Testing averages of 1d4, 1d6, 1d8, 3d10, 3D10, 3d10+5, 3D10+5 and 1d4+1d6+10'))
+
+    console.log(evaluate('Sample health with con = 3, effective level = 13 is ${lvl}d8 + ${lvl * con}', {
+        lvl: 13,
+        con: 3
+    }))
 }

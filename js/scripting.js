@@ -1,5 +1,7 @@
 /* global 
-evaluate:false
+select:false,
+evaluate:false,
+math:false
 */
 
 /**
@@ -32,7 +34,7 @@ evaluate:false
  * { pick: 1, from: 3, add: 5}
  * 
  */
-var evalutate = function (options) {
+var select = function (options) {
     if (Array.isArray(options) || typeof (options) != 'object') {
         return options;
     } else {
@@ -96,4 +98,129 @@ var evalutate = function (options) {
 
         return results;
     }
+}
+
+/**
+ * Resolves a string template with a given context by expanding and calculating implicit functions, eh anything inside ${...}. Any variables are taken from the context parameter.
+ * 
+ * Variable expansion is allowed, as is 
+ * 
+ * 
+ * @param {*} input 
+ * @param {*} context 
+ */
+var evaluate = function (input, context) {
+    if (typeof (input) != 'string') return input;
+
+    // First pass looks for ${}-style evaluators
+    let output = __pass(input, /\$\{[^\}]*\}/g, function (raw) {
+        // Extract expression and mode
+        let opts = '';
+        let expr = raw.substr(2, raw.length - 3)
+        if (expr.lastIndexOf(',') > 0) {
+            opts = expr.substr(expr.lastIndexOf(',') + 1).toLowerCase()
+            expr = expr.substr(0, expr.length - opts.length - 1)
+        }
+
+        // Evaluate the expression
+        let value = 0;
+        try { value = math.eval(expr, context); }
+        catch (err) { console.warn(err); }
+
+        // Check for each option
+        if (opts.indexOf('o') >= 0 && typeof (value) == 'number') {
+            // Ordinal
+            switch (value % 10) {
+                case 1: value = value + 'st'; break;
+                case 2: value = value + 'nd'; break;
+                case 3: value = value + 'rd'; break;
+                default: value = value + 'st'; break;
+            }
+        }
+        if (opts.indexOf('s') >= 0 && typeof (value) == 'number') {
+            // Signed
+            if (value >= 0) value = '+' + value;
+        }
+
+        return value;
+    })
+
+    // Second pass looks for dice evaluator sequences
+    let rx = /(\d+([dD]\d+)?[ +-]*)+/g;
+    output = __pass(output, rx, function (expr, match) {
+        // Need at least one dice group
+        if (expr.toLowerCase().indexOf('d') == -1) return expr;
+
+        // Run a sub-expression to expand dice groups
+        let rx = /\d+[dD]\d+/g;
+        let cexpr = __pass(expr, rx, function (dexpr) {
+            let d = dexpr.toLowerCase().indexOf('d');
+
+            let qty = parseInt(dexpr.substr(0, d))
+            let die = parseInt(dexpr.substr(d + 1))
+            let avg = qty * (die + 1) / 2;
+            return dexpr[d] == 'D' ? Math.ceil(avg) : Math.floor(avg)
+        })
+
+        let avg = math.eval(cexpr)
+        let r = `${avg} (${expr.trim()})`
+
+        if (expr.endsWith(' ')) r += ' '
+
+        return r.toLowerCase()
+    })
+
+    return output;
+
+}
+
+/**
+     * Helper function for parsing. Do not use if you don't know what it does!
+     * 
+     * @param {Regex} rx 
+     * @param {Function} evaluate 
+     * */
+var __pass = function (input, rx, evaluate) {
+    // Extract all the groups inside ${} patterns
+    let matches = [];
+    if (rx.global) {
+        for (let m = rx.exec(input);
+            m != null;
+            m = rx.exec(input)) {
+            matches.push(m);
+        }
+    } else {
+        matches.push(rx.exec(input));
+        console.warn('Warning, pass expr is not global');
+    }
+
+    // Reverse match list to turn it into a queue
+    matches.reverse()
+
+    // Splice together each section, evaluating the match beforehand
+    let parts = []
+    let index = 0;
+    while (matches.length) {
+        let match = matches.pop();
+        let raw = match[0].toString();
+
+        // Push prior text
+        parts.push(input.substr(index, match.index - index))
+
+        // Evaluate and push
+        try { parts.push(evaluate(raw, match)) }
+        catch (err) { parts.push('NaN') }
+
+        // Update index
+        index = match.index + raw.length
+    }
+
+    // Add the last bit
+    if (index < input.length) {
+        parts.push(input.substr(index))
+    }
+
+    // And return the compounded result!
+    let firstPass = parts.join('');
+    return parts.join('')
 }
