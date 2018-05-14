@@ -1,0 +1,33 @@
+{
+    "name": "",
+    "alignment": "any",
+    "type": "humanoid",
+    "size": "Medium",
+    "crbase": 0.125,
+    "languages": [
+        "Common"
+    ],
+    "conditions": [],
+    "immunities": [],
+    "resistances": [],
+    "weaknesses": [],
+    "senses": [],
+    "speeds": {
+        "walk": 30
+    },
+    "stats": {
+        "str": 11,
+        "dex": 11,
+        "con": 11,
+        "int": 11,
+        "wis": 11,
+        "cha": 11
+    },
+    "traits": [
+        {
+            "type": "action",
+            "import": "weapons#dagger",
+            "slot": "melee1"
+        }
+    ]
+}

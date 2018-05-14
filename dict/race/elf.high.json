@@ -1,0 +1,61 @@
+{
+    "name": "Wood Elf",
+    "alignment": "any good",
+    "type": "humanoid",
+    "size": "Medium",
+    "crbase": 0.125,
+    "languages": [
+        "Common",
+        "Elvish"
+    ],
+    "conditions": [],
+    "immunities": [],
+    "resistances": [],
+    "weaknesses": [],
+    "proficiencies": [
+        "Perception"
+    ],
+    "senses": [
+        "Darkvision#60"
+    ],
+    "speeds": {
+        "walk": 30
+    },
+    "spells": {
+        "ability": "int",
+        "0": {
+            "take": 1,
+            "from": [
+                "Acid Splash",
+                "Friends",
+                "Infestation",
+                "Message",
+                "Thunderclap"
+            ]
+        }
+    },
+    "stats": {
+        "str": 10,
+        "dex": 12,
+        "con": 10,
+        "int": 11,
+        "wis": 10,
+        "cha": 10
+    },
+    "traits": [
+        {
+            "type": "action",
+            "import": "weapons#ssword",
+            "slot": "melee1"
+        },
+        {
+            "type": "action",
+            "import": "weapons#sbow",
+            "slot": "ranged"
+        },
+        {
+            "type": "trait",
+            "import": "traits#fey"
+        }
+    ]
+}

@@ -1,0 +1,49 @@
+{
+    "name": "Kobold",
+    "alignment": "lawful evil",
+    "type": "humanoid",
+    "size": "Small",
+    "crbase": 0.125,
+    "languages": [
+        "Common",
+        "Draconic"
+    ],
+    "conditions": [],
+    "immunities": [],
+    "resistances": [],
+    "weaknesses": [],
+    "senses": [
+        "Darkvision#60"
+    ],
+    "speeds": {
+        "walk": 30
+    },
+    "stats": {
+        "str": 7,
+        "dex": 15,
+        "con": 9,
+        "int": 8,
+        "wis": 7,
+        "cha": 8
+    },
+    "traits": [
+        {
+            "type": "action",
+            "import": "weapons#dagger",
+            "slot": "melee1"
+        },
+        {
+            "type": "action",
+            "import": "weapons#sling",
+            "slot": "ranged"
+        },
+        {
+            "type": "trait",
+            "import": "traits#nosun"
+        },
+        {
+            "type": "trait",
+            "import": "traits#packt"
+        }
+    ]
+}

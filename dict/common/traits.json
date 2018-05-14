@@ -1,10 +1,18 @@
 {
-    "sunsens": {
+    "nosun": {
         "name": "Sunlight Sensitivity",
         "description": "While in sunlight, the $name has disadvantage on Attack rolls, as well as on Wisdom (Perception) checks that rely on sight"
     },
     "pack": {
         "name": "Pack Tactics",
         "description": "The $name has advantage on an Attack roll against a creature if at least one of the $name's allies is within 5 ft. of the creature and the ally isn't Incapacitated."
+    },
+    "fey": {
+        "name": "Fey Ancestry",
+        "description": "The ${name} has advantage on saving throws against being Charmed, and magic can’t put it to sleep."
+    },
+    "amphibious": {
+        "name": "Amphibious",
+        "description": "The ${name} can breathe air and water."
     }
 }
