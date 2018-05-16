@@ -1,0 +1,7 @@
+{
+    "rules": {
+        "no-empty-interface": true,
+        "no-magic-numbers": true,
+        "no-reference": true
+    }
+}

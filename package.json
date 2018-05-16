@@ -1,0 +1,35 @@
+{
+  "name": "mookgen",
+  "version": "1.0.0",
+  "description": "Mook Generator Project",
+  "main": "build.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alicenq/mookgen.git"
+  },
+  "author": "Alice N.Q. (email@aliceq.me)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alicenq/mookgen/issues"
+  },
+  "homepage": "https://github.com/alicenq/mookgen#readme",
+  "dependencies": {
+    "browserify": "^16.2.2",
+    "eslint": "^4.19.1",
+    "gulp": "^3.9.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-tslint": "^8.1.3",
+    "gulp-typescript": "^4.0.2",
+    "gulp-uglify": "^3.0.0",
+    "run-sequence": "^2.2.1",
+    "ts-lint": "^4.5.1",
+    "typescript": "^2.8.3",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "devDependencies": {
+    "jshint": "^2.9.5",
+    "tslint": "^5.10.0"
+  }
+}

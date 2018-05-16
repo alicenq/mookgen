@@ -2,11 +2,14 @@
     "compileOnSave": true,
     "compilerOptions": {
         "allowUnreachableCode": false,
+        "declaration": true,
+        "forceConsistentCasingInFileNames": true,
         "noImplicitAny": true,
         "noImplicitReturns": true,
-        "outDir": "js",
-        "rootDir": "ts",
+        "noLib": false,
+        "outDir": "src",
+        "rootDir": "types",
         "removeComments": true,
-        "forceConsistentCasingInFileNames": true
+        "target": "es5"
     }
 }

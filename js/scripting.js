@@ -1,7 +1,8 @@
-/* global 
+/* global
 select:false,
 evaluate:false,
-math:false
+math:false,
+NV:false
 */
 
 /**
