@@ -6,7 +6,8 @@
         "node": true
     },
     "globals": {
-        "document": true
+        "document": true,
+        "NV": false
     },
     "parserOptions": {
         "ecmaFeatures": {
