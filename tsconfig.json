@@ -4,6 +4,8 @@
     ],
     "compileOnSave": true,
     "compilerOptions": {
+        "target": "ES5",
+        "module": "ES5",
         "allowUnreachableCode": false,
         "noImplicitAny": true,
         "noImplicitReturns": true,

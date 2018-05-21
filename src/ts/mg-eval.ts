@@ -1,52 +1,17 @@
 import * as math from 'mathjs'
+import { MGSelector } from './mg-def';
 
-/**
- *     
- * * Template to select a value from a list
- * { pick: 1, from: [] }
- *
- * * Template to select 3 values from a list
- * { pick: 3, from: [] }
- *
- * * Template to select between 1 and 3 values from a list
- * { upto: 3, from: [] }
- *
- * * Template to select between 3 and 6 unique values from a list
- * { pick: 3, upto: 6, from: [] }
- *
- * * Template to select 3 values from a list, allowing for repeated values
- * { pick: 3, from: [], unique: false }
- *
- * * Template to select 3 values from a list with preference for lower/first values
- * { pick: 3, from: [], weight: 'low' }
- *
- * * Template to select 3 values from a list with preference for lower/first values
- * { pick: 3, from: [], weight: 'high' }
- *
- * * Template to select a value between 5 and 7, inclusive
- * { pick: 1, from: 3, add: 5}
- *
- */
-export class MGSelector {
+export class MGEval {
     /**
-     * Number of items to pick
+     * Evaluates a single output value based off of the given options
      */
-    pick: number = 1;
-    from: number | any[] = [];
-    upto?: number;
-    add?: number;
-    weight?: 'low' | 'high';
-
-    /**
-        * Evaluates a single output value based off of the given options
-        */
-    static evaluate = function (options: MGSelector | any[] | any) {
+    static select = function (options: MGSelector | any[]) {
         if (Array.isArray(options) || typeof (options) != 'object') {
             return options;
         } else {
             let n: number = 1;
             let from: number | any[] = 0;
-            let add: number = 0;
+            let add: number | string = 0;
             let unique: boolean = true;
             let weight: string = null;
             let results: any[] = [];
@@ -104,19 +69,11 @@ export class MGSelector {
             return results;
         }
     };
-}
 
-export class MGEval {
     /**
-     * Resolves a string template with a given context by expanding and calculating implicit functions, eh anything inside ${...}. Any variables are taken from the context parameter.
-     * 
-     * Variable expansion is allowed, as is 
-     * 
-     * 
-     * @param {*} input 
-     * @param {*} context 
+     * Resolves a string template with a given context by expanding and calculating implicit functions. Anything inside ${...} is calculated with variables taken from the context object. Any strings in the form of '4 + 1d4' or similar will be expanded with their average.
      */
-    static resolve = function (input: string, context?: object) {
+    static resolve = function (input: string, context?: Object) {
         if (typeof (input) != 'string') return input;
 
         // First pass looks for ${}-style evaluators

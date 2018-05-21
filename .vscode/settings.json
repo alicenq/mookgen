@@ -3,11 +3,13 @@
     "editor.tabSize": 4,
     "editor.wordWrap": "bounded",
     "files.exclude": {
-        "**/.git": true,
+        "**/.git*": true,
         "**/.svn": true,
         "**/.hg": true,
         "**/CVS": true,
-        "**/.DS_Store": true
+        "**/.DS_Store": true,
+        "**/bld/": true,
+        "**/package-lock.json": true,
     },
     "editor.formatOnType": true,
     "editor.rulers": [
@@ -23,7 +25,7 @@
             "reduce_vars": true,
             "collapse_vars": true,
             "evaluate": true,
-            "unused": true 
+            "unused": true
         },
         "output": {
             "ascii_only": false,

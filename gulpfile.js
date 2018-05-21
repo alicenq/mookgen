@@ -13,10 +13,13 @@ var gulp = require("gulp"),
     tsProject = tsc.createProject("tsconfig.json");
 
 /**
- * Clean dist
+ * Clean bld and dist
  */
 gulp.task('prebuild-clean', function () {
-    return del('dist/**/*');
+    return del([
+        'bld/**/*',
+        'dist/**/*'
+    ]);
 });
 
 /**
@@ -61,19 +64,19 @@ gulp.task('xpile-js', function () {
 gulp.task('xpile-ts', function () {
     return gulp.src('src/ts/**/*.ts')
         .pipe(tsProject())
-        .js.pipe(gulp.dest("dist/js/"));
+        .js.pipe(gulp.dest("bld/js/"));
 });
 
 /**
  * Bundle all types defined in types.ts into a single file
  */
-gulp.task('bundle-types', function () {
-    var libraryName = "mg-types";
-    var sourcePath = "dist/js/";
-    var mapFile = "types.js";
+gulp.task('bundle-main', function () {
+    var libraryName = "mookgen-index";
+    var sourcePath = "bld/js/";
+    var mapFile = "index.js";
 
     var bundler = browserify({
-        debug: true,
+        debug: false,
         standalone: libraryName
     });
 
@@ -85,6 +88,26 @@ gulp.task('bundle-types', function () {
 });
 
 /**
+ * Bundle all types defined in types.ts into a single file
+ */
+gulp.task('bundle-types', function () {
+    var libraryName = "mg-types";
+    var sourcePath = "bld/js/";
+    var mapFile = "types.js";
+
+    var bundler = browserify({
+        debug: false,
+        standalone: libraryName
+    });
+
+    return bundler.add(sourcePath + mapFile)
+        .bundle()
+        .pipe(source(libraryName + ".js"))
+        .pipe(buffer())
+        .pipe(gulp.dest("bld/js/"));
+});
+
+/**
  * Basically the equivalent of VS rebuild all
  */
 gulp.task('build-all',
@@ -92,6 +115,7 @@ gulp.task('build-all',
         'prebuild-clean',
         'xpile-js',
         'xpile-ts',
-        'bundle-types',
+        // 'bundle-types',
+        'bundle-main',
         'minify')
 );
