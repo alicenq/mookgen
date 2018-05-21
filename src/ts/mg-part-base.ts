@@ -1,3 +1,5 @@
+import { MGTrait } from "./mg-def"
+
 export class MGBase {
     name: string;
     alignment: string;
@@ -26,8 +28,3 @@ export class MGBase {
     traits: MGTrait[]
 }
 
-export class MGTrait {
-    type: string;
-    import: string;
-    slot: string;
-}

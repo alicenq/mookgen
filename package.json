@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "Mookgen development environment",
   "main": "",
-  "dependencies": {},
+  "dependencies": {
+    "mathjs": "^4.2.2"
+  },
   "devDependencies": {
+    "@types/mathjs": "^3.20.0",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
