@@ -1,14 +1,14 @@
+/* global: NV:false */
+
 import * as math from 'mathjs'
-import { MGSelector } from './mg-def';
+import { MGSelector, MGTemplate } from './mg-def';
 
 export class MGEval {
     /**
      * Evaluates a single output value based off of the given options
      */
-    static select = function (options: MGSelector | any[]) {
-        if (Array.isArray(options) || typeof (options) != 'object') {
-            return options;
-        } else {
+    static select = function (options: MGSelector | any | any[]) {
+        if (typeof (options) == 'object') {
             let n: number = 1;
             let from: number | any[] = 0;
             let add: number | string = 0;
@@ -67,6 +67,8 @@ export class MGEval {
             }
 
             return results;
+        } else {
+            return options;
         }
     };
 
@@ -135,7 +137,6 @@ export class MGEval {
         });
 
         return output;
-
     };
 
     /**
@@ -188,4 +189,62 @@ export class MGEval {
         let firstPass = parts.join('');
         return parts.join('');
     };
+}
+
+export class MGBuilder {
+    static build = function (
+        basename: string,
+        classname: string):
+        Promise<MGTemplate> {
+        return new Promise(function (
+            resolve: (obj: MGTemplate) => void,
+            reject: (err: any) => void) {
+
+            // So much stuff to do.... Start by getting the required JSON templates
+            let basedata, classdata;
+            Promise.all([
+                fetch('pub/dict/base/' + basename + '.json')
+                    .then(res => res.json()),
+                fetch('pub/dict/class/' + classname + '.json')
+                    .then(res => res.json())
+            ])
+                .then(function (datas) {
+                    // First pass expands both input templates
+                    let basedata = MGBuilder.__first_pass(datas[0]);
+                    let classdata = MGBuilder.__first_pass(datas[1]);
+
+                    console.log(basedata, classdata);
+
+
+                }).catch(reject)
+        });
+    }
+
+    // Sifts through all the variables and expands any MGSelectors it finds
+    private static __first_pass(template: object): MGTemplate {
+        let result = Object.setPrototypeOf(template, MGTemplate);
+
+        // Recurse through all keys
+        let queue: (any[]) = [];
+        queue.push(template);
+
+        // Go through each key and eval the ones we can
+        while (queue.length > 0) {
+            let obj = queue.pop();
+            for (let key in Object.keys(obj)) {
+                if (!obj.hasOwnProperty(key)
+                    || typeof (obj[key]) != 'object')
+                    continue;
+
+                if (obj.hasOwnProperty('from') || obj instanceof MGSelector) {
+                    obj[key] = MGEval.select(obj[key]);
+                }
+                else {
+                    queue.push(obj[key]);
+                }
+            }
+        }
+
+        return result;
+    }
 }

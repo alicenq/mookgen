@@ -7,6 +7,8 @@
     "mathjs": "^4.2.2"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.20",
+    "@types/core-js": "^0.9.36",
     "@types/mathjs": "^3.20.0",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
@@ -21,7 +23,7 @@
     "gulp-typescript": "^4.0.2",
     "gulp-uglify": "^3.0.0",
     "run-sequence": "^2.2.1",
-    "typescript": "^2.1.6",
+    "typescript": "^2.8.3",
     "vinyl-buffer": "^1.0.1",
     "vinyl-paths": "^2.1.0",
     "vinyl-source-stream": "^2.0.0"

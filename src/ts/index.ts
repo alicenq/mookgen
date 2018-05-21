@@ -1,4 +1,6 @@
 import { MGTemplate } from './mg-def'
+import { MGBuilder } from './mg-eval';
 
-console.log(new MGTemplate())
+
+MGBuilder.build('kobold', 'mook').then(console.log).catch(console.warn)
 

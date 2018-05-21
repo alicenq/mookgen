@@ -2,6 +2,8 @@ export class MGTrait {
     type: string;
     import: string;
     slot: string;
+
+    [key: string]: any;
 }
 
 export class MGTemplate {
@@ -14,6 +16,7 @@ export class MGTemplate {
     languages?: string[] | MGSelector;
     conditions?: string[] | MGSelector;
     resistances?: string[] | MGSelector;
+    immunities?: string[] | MGSelector;
     weaknesses?: string[] | MGSelector;
     senses?: string[] | MGSelector;
     speeds?: {
@@ -33,6 +36,8 @@ export class MGTemplate {
     traits?: MGTrait[];
     spells: (string[] | MGSelector)[];
     innate: (string[] | MGSelector)[];
+
+    [key: string]: any;
 }
 
 /**
@@ -72,4 +77,6 @@ export class MGSelector {
     add?: any;
     weight?: 'low' | 'high';
     unique?: boolean;
+
+    [key: string]: any;
 }

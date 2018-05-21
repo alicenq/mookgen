@@ -108,9 +108,20 @@ gulp.task('bundle-types', function () {
 });
 
 /**
- * Basically the equivalent of VS rebuild all
+ * Faster build
  */
 gulp.task('build-all',
+    gulp.series(
+        'xpile-js',
+        'xpile-ts',
+        // 'bundle-types',
+        'bundle-main')
+);
+
+/**
+ * Basically the equivalent of VS rebuild all
+ */
+gulp.task('rebuild-all',
     gulp.series(
         'prebuild-clean',
         'xpile-js',
