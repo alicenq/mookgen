@@ -1,11 +1,14 @@
 {
+    "include": [
+        "src/ts/**/**.ts"
+    ],
     "compileOnSave": true,
     "compilerOptions": {
         "allowUnreachableCode": false,
         "noImplicitAny": true,
         "noImplicitReturns": true,
-        "outDir": "js",
-        "rootDir": "ts",
+        "outDir": "dist/js",
+        "rootDir": "src/ts",
         "removeComments": true,
         "forceConsistentCasingInFileNames": true
     }
