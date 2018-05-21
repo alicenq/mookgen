@@ -20,13 +20,6 @@ gulp.task('prebuild-clean', function () {
 });
 
 /**
- * Clean temp objects
- */
-gulp.task('postbuild-clean', function () {
-    return del('dist/**/obj');
-});
-
-/**
  * Minify everything in dist
  */
 gulp.task('minify', function () {
@@ -68,7 +61,7 @@ gulp.task('xpile-js', function () {
 gulp.task('xpile-ts', function () {
     return gulp.src('src/ts/**/*.ts')
         .pipe(tsProject())
-        .js.pipe(gulp.dest("dist/js/obj/"));
+        .js.pipe(gulp.dest("dist/js/"));
 });
 
 /**
@@ -76,7 +69,7 @@ gulp.task('xpile-ts', function () {
  */
 gulp.task('bundle-types', function () {
     var libraryName = "mg-types";
-    var sourcePath = "dist/js/obj/";
+    var sourcePath = "dist/js/";
     var mapFile = "types.js";
 
     var bundler = browserify({
@@ -100,6 +93,5 @@ gulp.task('build-all',
         'xpile-js',
         'xpile-ts',
         'bundle-types',
-        'minify',
-        'postbuild-clean')
+        'minify')
 );

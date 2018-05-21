@@ -107,9 +107,6 @@ export class MGSelector {
 }
 
 export class MGEval {
-
-
-
     /**
      * Resolves a string template with a given context by expanding and calculating implicit functions, eh anything inside ${...}. Any variables are taken from the context parameter.
      * 
